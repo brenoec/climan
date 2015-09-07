@@ -1,0 +1,43 @@
+
+div.center.form
+  form(name='clientsform')
+    h3 Client {{ client.cpf ? strCPF(client.cpf) : strCPF(cpf) }} 
+
+    label.pointer(for='name') Name 
+    input(ng-model='client.name' name='name' id='name' type='text' required)
+    br
+
+    label.pointer(for='email') E-mail 
+    input(ng-model='client.email' name='email' id='email' type='email' placeholder='example@email.com' required)
+    br
+    
+    label.pointer(for='marital') Marital Status
+    select(ng-model='client.marital' name='marital' id='marital' form='clients-form')
+      option(value='single' selected = (marital == 'single')) Single
+      option(value='married') Married
+    
+    h3 Address
+    
+    label.pointer(for='postcode') Postcode 
+    input(ng-model='client.address.postcode' name='postcode' id='postcode' type='text' required)
+    br
+    
+    label.pointer(for='information') Additional Information 
+    input(ng-model='client.address.information' name='information' id='information' type='text' required)
+    br
+    
+    h3 Phone Numbers
+
+    div(ng-repeat='(i, phone) in client.phones track by $index')
+      label.pointer(for='phone-{{$index}}') Phone {{$index + 1}}
+      input(ng-model='client.phones[i]' id='phone-{{$index}}' type='text' ui-mask='+99 (99) 9999-9999' required)  
+      
+    div#phone-numbers-buttons
+      a.button(href='' ng-click='addPhoneNumber()') more
+      a.button(href='' ng-click='popPhoneNumber()' ng-hide='client.phones.length === 1') less
+
+    div.right
+      a.button.green(href='' ng-class='{ disabled: !clientsform.$valid || cpfStatus !== "valid" }' ng-click='clientsform.$valid && cpfStatus === "valid" ? save() : null') Save
+      a.button.red(href='' ng-click='delete()') Delete
+      
+  hr

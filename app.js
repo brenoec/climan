@@ -25,8 +25,41 @@ app.use('/', routes);
 
 // Route to states
 app.use('/states', function (req, res) {
-  console.log(__dirname);
   res.render('./states' + req.path);
+});
+
+// api routes
+var api = {
+  clients: require('./routes/api/clients')
+}
+
+app.use('/api/clients', api.clients);
+
+// display environment
+console.log('\n\t Environment:\t' + app.get('env') + '\n');
+
+// mongodb configuration
+var mongoose = require('mongoose');
+var mongo = '';
+
+var credentials = {
+  user: '',
+  password:  ''
+};
+
+if (app.get('env') === 'development') {
+  mongo = 'mongodb://localhost/climan';
+  mongoose.connect(mongo);
+} else {
+  mongo = 'mongodb://' + credentials.user + ':' + credentials.password + '';
+  mongoose.connect(mongo);
+}
+
+// mongodb connection
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'mongoose connection'));
+db.once('open', function callback () {
+  console.log('mongoose connection [Opened: connected to [' + mongo + ']]');
 });
 
 // catch 404 and forward to error handler

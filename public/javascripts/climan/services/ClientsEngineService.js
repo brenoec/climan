@@ -65,6 +65,31 @@
         }
 
         return false;
+      },
+
+      // Returns true if CLient is valid. False otherwise.
+      validate: function(client) {
+
+        if (
+            client
+            && client.cpf && this.validateCPF(client.cpf)
+
+            && client.name
+            && client.email
+            && /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test(client.email)
+            && client.marital
+            && /married|single/i.test(client.marital)
+
+            && client.address
+            && client.address.information && client.address.postcode
+
+            && client.phones
+            && client.phones[0] && typeof Number(client.phones[0]) === 'number'
+           ) {
+          return true;
+        }
+
+        return false;
       }
     }
 
