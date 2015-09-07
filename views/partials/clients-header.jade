@@ -1,0 +1,6 @@
+nav#top-menu(ng-class='{ invalid: status === "invalid" }')
+  h1 climan
+  input#cpf(type='text' name='cpf' ng-model-options='{ debounce: 250 }'
+    ng-model='cpf' ui-mask='999.999.999-99' ng-change='search(cpf)')
+  h2(ng-show='status === "invalid"') CPF inválido!
+  

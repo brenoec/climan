@@ -1,8 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Vollkorn);
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
+  font-size: 1em;
+  font-family: 'Vollkorn', sans-serif, serif;
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  font-size: 2em;
+}
+
+nav#top-menu {
+  padding: 2em;
+  color: #f2f2f2;
+  background-color: #323242;
+  transition: background-color 0.25s linear;
+}
+
+nav#top-menu.invalid {
+  background-color: #823232;
+}
+
+nav h1 {
+  position: absolute;
+  font-size: 4em;
+  top: -0.5em;
+}
+
+nav h2 {
+  position: absolute;
+  text-align: center;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+nav input#cpf {
+  display: block;
+  margin : 0 auto;
+}
+
+textarea:focus, input:focus {
+  outline: 0;
+}
+
+input[type="text"] {
+  padding: 7px 36px 7px 36px;
+  border: solid 5px #c9c9c9;
+  border-radius: 250px;
+  transition: border 0.3s;
+  font-size: 2em;
+  text-align: center;
+}
+
+input[type="text"]:focus, input[type="text"].focus {
+  border: solid 5px #969696;
+  border-radius: 250px;
 }

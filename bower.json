@@ -1,0 +1,15 @@
+{
+  "name": "climan",
+  "version": "0.0.0",
+  "homepage": "https://github.com/brenoec/climan",
+  "authors": [
+    "Breno Souza <breno.ec@gmail.com>"
+  ],
+  "main": "app.js",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.4.5",
+    "angular-ui-mask": "~1.4.4",
+    "angular-ui-router": "ui-router#~0.2.15"
+  }
+}

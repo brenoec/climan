@@ -1,5 +1,18 @@
-extends layout
+doctype html
+html(ng-app='climan')
+  head
+    title climan
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    
+  body
+    
+    #main-content(ui-view)
 
-block content
-  h1= title
-  p Welcome to #{title}
+    script(src='/vendor/angular/angular.min.js')
+    script(src='/vendor/angular-ui-mask/dist/mask.min.js')
+    script(src='/vendor/angular-ui-router/release/angular-ui-router.min.js')
+    
+    script(src='/javascripts/climan/app.js')
+    script(src='/javascripts/climan/controllers/ClientsController.js')
+    script(src='/javascripts/climan/services/ClientsEngineService.js')

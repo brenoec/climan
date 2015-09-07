@@ -1,7 +1,7 @@
 var test         = require('tape');
-var clientEngine = require('../engines/clientEngine');
+var clientEngine = require('../public/javascripts/climan/services/ClientsEngineService');
 
-test('Testing a function that validates CPF number', function (t) {
+test('Testing a function that validates CPF number...', function (t) {
   // number of assertions
   t.plan(7);
 
