@@ -43,15 +43,15 @@ var mongoose = require('mongoose');
 var mongo = '';
 
 var credentials = {
-  user: '',
-  password:  ''
+  user: 'climan',
+  password:  'climan'
 };
 
 if (app.get('env') === 'development') {
   mongo = 'mongodb://localhost/climan';
   mongoose.connect(mongo);
 } else {
-  mongo = 'mongodb://' + credentials.user + ':' + credentials.password + '';
+  mongo = 'mongodb://' + credentials.user + ':' + credentials.password + '@ds041603.mongolab.com:41603/heroku_m7cmxxmp';
   mongoose.connect(mongo);
 }
 
