@@ -1,20 +1,37 @@
 (function() {
 
-  angular.module('climan').controller('ClientsController', ['$http', '$scope', '$state', 'ClientsEngineService',
-    function($http, $scope, $state, ClientsEngine) {
+  angular.module('climan').controller('ClientsController', ['$http', '$scope', '$state', 'ClientsEngineService', 'Notification',
+    function($http, $scope, $state, ClientsEngine, Notification) {
 
     $scope.search = function(cpf) {
 
-      if (!cpf || (cpf && cpf.length < 11)) {
+      if (!cpf || cpf === '' || cpf.length < 11) {
+        $scope.cpfStatus = 'invalid';
         return;
       }
 
-      if (!ClientsEngine.validateCPF(cpf)) {
+      if (cpf.length === 11 && !ClientsEngine.validateCPF(cpf)) {
         $scope.cpfStatus = 'invalid';
+        Notification.error({ message: 'CPF invalid' });
+        return;
       }
-      else {
+
+      else if (cpf.length === 11 && ClientsEngine.validateCPF(cpf)) {
         $scope.cpfStatus = 'valid';
-        // search on db
+
+        $http.get('/api/clients/' + cpf)
+          .then(function (response) {
+            if (response.data) {
+              $scope.client = response.data;
+              $scope.client.address = response.data.address[0];
+              Notification.success({ message: 'Client loaded', delay: 2500 });
+            }
+            else {
+              Notification.error({ message: 'No Clients were found: server response mismatch', delay: 2500 });
+            }
+          }, function (response) {
+            Notification.error({ message: 'No Clients were found', delay: 2500 });
+          });
       }
 
     };
@@ -23,18 +40,17 @@
       $scope.client.cpf = $scope.cpf;
 
       if (ClientsEngine.validate($scope.client)) {
-        $http.post('/api/clients', { client : $scope.client } ).then(function(response) {
-          // notify success
-          return;
-        });
+        $http.post('/api/clients', { client : $scope.client } )
+          .then(function(response) {
+            Notification.success({ message: 'Client saved', delay: 2500 });
+            return;
+          }, function (response) {
+            Notification.error({ message: 'Client not saved', delay: 2500 });
+          });
       }
     };
 
-    $scope.delete = function() {
-      if (ClientsEngine.validate($scope.client)) {
-        // remove from db
-      }
-
+    $scope.clear = function() {
       $scope.cpfStatus = '';
 
       $scope.cpf = '';
@@ -46,6 +62,20 @@
       $scope.client.phones = [ '' ];
     };
 
+    $scope.delete = function() {
+      if (ClientsEngine.validateCPF($scope.cpf)) {
+        $http.delete('/api/clients/' + $scope.cpf)
+          .then(function(response) {
+            $scope.clear();
+            if (response.status === 204) {
+              Notification.success({ message: 'Client deleted', delay: 2500 });
+            }
+          }, function (response) {
+            Notification.error({ message: 'Client not deleted', delay: 2500 });
+          });
+      }
+    };
+
     $scope.addPhoneNumber = function() {
       $scope.client.phones.push('');
     };
@@ -54,14 +84,7 @@
       $scope.client.phones.pop();
     };
 
-    $scope.strCPF = function(cpf) {
-      if (cpf) {
-        return cpf.substring(0,3) + '.' + cpf.substring(3,6) + '.' + cpf.substring(6,9) + '-' + cpf.substring(9,11);
-      }
-      return '';
-    }
-
-    $scope.delete();
+    $scope.clear();
 
   }]);
 })();

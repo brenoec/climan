@@ -10,6 +10,7 @@
   "dependencies": {
     "angular": "~1.4.5",
     "angular-ui-mask": "~1.4.4",
+    "angular-ui-notification": "~0.0.14",
     "angular-ui-router": "ui-router#~0.2.15"
   }
 }

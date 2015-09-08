@@ -1,7 +1,7 @@
 
 div.center.form
   form(name='clientsform')
-    h3 Client {{ client.cpf ? strCPF(client.cpf) : strCPF(cpf) }} 
+    h3 Personal Information
 
     label.pointer(for='name') Name 
     input(ng-model='client.name' name='name' id='name' type='text' required)
@@ -38,6 +38,7 @@ div.center.form
 
     div.right
       a.button.green(href='' ng-class='{ disabled: !clientsform.$valid || cpfStatus !== "valid" }' ng-click='clientsform.$valid && cpfStatus === "valid" ? save() : null') Save
-      a.button.red(href='' ng-click='delete()') Delete
+      a.button.red(href='' ng-class='{ disabled: cpfStatus !== "valid" }' ng-click='cpfStatus === "valid" ? delete() : null') Delete
+      a.button.red(href='' ng-click='clear()') Clear
       
   hr

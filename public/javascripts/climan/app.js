@@ -1,6 +1,6 @@
 (function() {
 
-  var app = angular.module('climan', ['ui.mask', 'ui.router']);
+  var app = angular.module('climan', ['ui.mask', 'ui-notification', 'ui.router']);
 
   app.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', function($httpProvider, $stateProvider, $urlRouterProvider) {
 
