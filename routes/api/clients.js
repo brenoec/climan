@@ -44,7 +44,7 @@ router.delete('/:cpf', function(req, res, next) {
         res.status(404).end();
       }
 
-      chain.shift();
+      chain.shift()();
     },
 
     function() {
