@@ -3,7 +3,7 @@ var clientEngine = require('../public/javascripts/climan/services/ClientsEngineS
 
 test('#1 - Testing a function that validates a CPF number...', function (t) {
   // number of assertions
-  t.plan(7);
+  t.plan(8);
 
   // set timeout in ms for performance coverage
   t.timeoutAfter(50);
@@ -14,7 +14,8 @@ test('#1 - Testing a function that validates a CPF number...', function (t) {
   var invalidPositiveInfinity   = Number.POSITIVE_INFINITY;
   var invalidNegativeInfinity   = Number.NEGATIVE_INFINITY;
   var invalid                   = 51448845651;
-  var valid                     = 39053344705;
+  var valid1                    = 191;
+  var valid2                    = 39053344705;
 
   t.equal(clientEngine.validateCPF(invalidBadFormat), false,
     "Bad formated CPF .......................... should be evaluated to false");
@@ -28,8 +29,10 @@ test('#1 - Testing a function that validates a CPF number...', function (t) {
     "Negative Infinity ......................... should be evaluated to false");
   t.equal(clientEngine.validateCPF(invalid), false,
     "Invalid CPF ............................... should be evaluated to false");
-  t.equal(clientEngine.validateCPF(valid), true,
-    "Valid CPF ................................. should be validated as true");
+  t.equal(clientEngine.validateCPF(valid1), true,
+    "#1 Valid CPF (left zeros) ................. should be validated as true");
+  t.equal(clientEngine.validateCPF(valid2), true,
+    "#2 Valid CPF .............................. should be validated as true");
 });
 
 test('#2 - Testing a function that validates a client...', function (t) {

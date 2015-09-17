@@ -43,6 +43,11 @@
 
         // 3. CPF validation
         var digits = ("" + cpf).split("").map(Number);
+
+        while (digits.length < 11) {
+          digits = [0].concat(digits);
+        }
+
         var v = [];
         v[0] = 0;
         v[1] = 0;

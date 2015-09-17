@@ -5,18 +5,18 @@
 
     $scope.search = function(cpf) {
 
-      if (!cpf || cpf === '' || cpf.length < 11) {
+      if (!cpf || cpf === '') {
         $scope.cpfStatus = 'invalid';
         return;
       }
 
-      if (cpf.length === 11 && !ClientsEngine.validateCPF(cpf)) {
+      if (!ClientsEngine.validateCPF(cpf)) {
         $scope.cpfStatus = 'invalid';
         Notification.error({ message: 'CPF invalid' });
         return;
       }
 
-      else if (cpf.length === 11 && ClientsEngine.validateCPF(cpf)) {
+      else if (ClientsEngine.validateCPF(cpf)) {
         $scope.cpfStatus = 'valid';
 
         $http.get('/api/clients/' + cpf)
